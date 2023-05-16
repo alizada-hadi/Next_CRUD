@@ -2,11 +2,14 @@ from django.shortcuts import render
 from .serializers import BlogSerializer
 from rest_framework.views import APIView
 from .models import Blog
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
 
 class BlogView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, pk=None):
         if pk is not None:
             obj = Blog.objects.get(pk=pk)
